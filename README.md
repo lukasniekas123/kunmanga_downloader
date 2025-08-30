@@ -134,6 +134,8 @@ The GUI provides the same functionality as the CLI with a user-friendly interfac
 4. Choose conversion format and cleanup options
 5. Click "Download Selected Chapters" to start the download
 
+**Pro Tip**: You can quickly select or deselect multiple chapters by holding down the left mouse button and drag your cursor up or down the chapter list to quickly select or deselect multiple chapters.
+
 ## Configuration
 
 Adjust settings in `config.py`:
