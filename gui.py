@@ -268,6 +268,25 @@ class KunMangaDownloaderGUI(QMainWindow):
             QLabel {
                 color: white;
             }
+            /* Style for QMessageBox to ensure text is visible */
+            QMessageBox {
+                background-color: #353535;
+            }
+            QMessageBox QLabel {
+                color: white;
+            }
+            QMessageBox QPushButton {
+                background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                                  stop: 0 #8A2BE2, stop: 1 #4169E1);
+                color: white;
+                border-radius: 5px;
+                padding: 5px;
+                min-width: 70px;
+            }
+            QMessageBox QPushButton:hover {
+                background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                                  stop: 0 #9932CC, stop: 1 #4682B4);
+            }
             /* Animation for progress bar */
             @keyframes progressAnimation {
                 0% { background-position: 0% 50%; }
