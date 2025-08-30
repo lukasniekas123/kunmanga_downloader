@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QListWidget, QProgressBar, QRadioButton, QCheckBox, QGroupBox, QMessageBox, QListWidgetItem
 from PyQt6.QtGui import QFont, QPalette, QColor
-from PyQt6.QtCore import Qt, pyqtSignal, QObject, QThread
+from PyQt6.QtCore import Qt, pyqtSignal, QObject, QThread, QPropertyAnimation, QEasingCurve
 
 from downloader.scraper import get_manga_metadata
 from downloader.download import download_chapters_concurrently
@@ -71,6 +71,20 @@ class KunMangaDownloaderGUI(QMainWindow):
         self.setGeometry(100, 100, 800, 600)
         self.setup_ui()
         self.manga_data = None  # To store manga title and chapters
+        self.fade_in_animation = None # To store the fade-in animation
+
+    def showEvent(self, a0):
+        # Call the base class implementation
+        super().showEvent(a0)
+        
+        # Create and start the fade-in animation
+        if not self.fade_in_animation:
+            self.fade_in_animation = QPropertyAnimation(self, b"windowOpacity")
+            self.fade_in_animation.setDuration(1000)  # 1 second
+            self.fade_in_animation.setStartValue(0.0)
+            self.fade_in_animation.setEndValue(1.0)
+            self.fade_in_animation.setEasingCurve(QEasingCurve.Type.OutCubic)
+            self.fade_in_animation.start(QPropertyAnimation.DeletionPolicy.DeleteWhenStopped)
 
     def setup_ui(self):
         # Set dark theme
@@ -81,6 +95,12 @@ class KunMangaDownloaderGUI(QMainWindow):
         self.setCentralWidget(central_widget)
         main_layout = QVBoxLayout(central_widget)
 
+        # Title
+        title_label = QLabel("KunManga Downloader")
+        title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        title_label.setStyleSheet("font-size: 24px; font-weight: bold; color: #8A2BE2; margin: 10px;")
+        main_layout.addWidget(title_label)
+        
         # URL Input
         url_layout = QHBoxLayout()
         url_label = QLabel("Manga URL:")
@@ -160,10 +180,10 @@ class KunMangaDownloaderGUI(QMainWindow):
         self.setPalette(dark_palette)
 
         self.setStyleSheet("""
-            QToolTip { 
-                color: #ffffff; 
-                background-color: #2a82da; 
-                border: 1px solid white; 
+            QToolTip {
+                color: #ffffff;
+                background-color: #2a82da;
+                border: 1px solid white;
             }
             QPushButton {
                 border-radius: 10px;
@@ -172,29 +192,86 @@ class KunMangaDownloaderGUI(QMainWindow):
                                                   stop: 0 #8A2BE2, stop: 1 #4169E1);
                 color: white;
                 font-weight: bold;
+                border: none;
             }
             QPushButton:hover {
                 background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
                                                   stop: 0 #9932CC, stop: 1 #4682B4);
+                /* Add a subtle glow effect on hover */
+                border: 1px solid #8A2BE2;
+            }
+            QPushButton:pressed {
+                background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                                  stop: 0 #4169E1, stop: 1 #8A2BE2);
+                padding: 12px 8px 8px 12px; /* Simulate press effect */
             }
             QLineEdit {
                 border-radius: 5px;
                 padding: 5px;
                 border: 1px solid #4169E1;
+                background-color: #252525;
+                color: white;
+            }
+            QLineEdit:focus {
+                border: 2px solid #8A2BE2; /* Glow on focus */
             }
             QListWidget {
                 border-radius: 5px;
                 border: 1px solid #4169E1;
+                background-color: #252525;
+                color: white;
+            }
+            QListWidget::item:selected {
+                background-color: #4169E1;
             }
             QGroupBox {
                 border: 1px solid #4169E1;
                 border-radius: 5px;
                 margin-top: 1ex;
+                background-color: rgba(40, 40, 40, 150); /* Slight transparency */
             }
             QGroupBox::title {
                 subcontrol-origin: margin;
                 subcontrol-position: top center;
                 padding: 0 3px;
+                color: #8A2BE2;
+            }
+            QProgressBar {
+                border: 1px solid #4169E1;
+                border-radius: 5px;
+                background-color: #252525;
+                height: 20px;
+            }
+            QProgressBar::chunk {
+                background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                                  stop: 0 #8A2BE2, stop: 1 #4169E1);
+                border-radius: 4px;
+                /* Add animation */
+                animation: progressAnimation 2s infinite alternate;
+            }
+            QRadioButton, QCheckBox {
+                color: white;
+            }
+            QRadioButton::indicator, QCheckBox::indicator {
+                width: 15px;
+                height: 15px;
+            }
+            QRadioButton::indicator::unchecked, QCheckBox::indicator::unchecked {
+                border: 1px solid #4169E1;
+                border-radius: 7px; /* For radio button */
+                background-color: #2525;
+            }
+            QRadioButton::indicator::checked, QCheckBox::indicator::checked {
+                border: 1px solid #8A2BE2;
+                background-color: #8A2BE2;
+            }
+            QLabel {
+                color: white;
+            }
+            /* Animation for progress bar */
+            @keyframes progressAnimation {
+                0% { background-position: 0% 50%; }
+                100% { background-position: 100% 50%; }
             }
         """)
 
@@ -230,6 +307,8 @@ class KunMangaDownloaderGUI(QMainWindow):
             self.setWindowTitle(f"KunManga Downloader - {manga_data['title']}")
             for chapter in manga_data['chapters']:
                 self.chapter_list.addItem(f"Chapter {chapter['number']}")
+            # Add a subtle animation to the chapter list
+            self.animate_chapter_list()
         else:
             QMessageBox.information(self, "Info", "No chapters found or failed to parse manga data.")
 
@@ -330,7 +409,15 @@ class KunMangaDownloaderGUI(QMainWindow):
         # For now, just update the progress bar
         # In a more advanced implementation, you could parse the message to get a percentage
         self.progress_bar.setValue(min(self.progress_bar.value() + 10, 100))
-
+        
+    def animate_chapter_list(self):
+        # Add a subtle animation to the chapter list when chapters are loaded
+        animation = QPropertyAnimation(self.chapter_list, b"windowOpacity")
+        animation.setDuration(500)
+        animation.setStartValue(0.0)
+        animation.setEndValue(1.0)
+        animation.setEasingCurve(QEasingCurve.Type.OutCubic)
+        animation.start(QPropertyAnimation.DeletionPolicy.DeleteWhenStopped)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
